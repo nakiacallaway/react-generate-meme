@@ -8,27 +8,17 @@ const Meme = () => {
   let history = useHistory();
 
   useEffect(() => {
-    // fetch('https://api.imgflip.com/get_memes')
-    //   .then(response => response.json())
-    //   .then(response => {
-    //     // console.log('after the res.json()', response);
-    //     // const { memes } = response.data;
-    //     // // console.log(memes);
-    //     // setMemeData(memes);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+
     const fetchMemes = async () => {
       try {
         let response = await fetch('https://api.imgflip.com/get_memes');
         response = await response.json();
-        // console.log('after the await for json()', response);
+        
         const { memes } = response.data;
         setMemeData(memes);
-        // console.log(memes);
+        
         setMeme(memes[0]);
-        // setMemeComponent();
+        
       } catch (error) {
         console.log(error);
       }
@@ -46,8 +36,7 @@ const Meme = () => {
       }
 
       setCaptions(caps);
-      // console.log(caps);
-    }
+      
   }, [meme]);
 
   const setMemeComponent = () => {
@@ -64,19 +53,18 @@ const Meme = () => {
         return c;
       }
     });
-    // console.log(updatedCaps);
+    
     setCaptions(updatedCaps);
   };
 
   const saveMeme = async () => {
-    // format the body of our request
-    // To send back to imgflip api
+    
     const memeData = new FormData();
     memeData.append('username', 'alkalilord');
     memeData.append('password', 'abc12345');
     memeData.append('template_id', meme.id);
     captions.forEach((c, index) => memeData.append(`boxes[${index}][text]`, c));
-    // make a request with updated body via fetch
+    
     try {
       let response = await fetch('https://api.imgflip.com/caption_image', {
         method: 'POST',
@@ -84,8 +72,7 @@ const Meme = () => {
       });
       response = await response.json();
       console.log('in the try block', response);
-      // handle the response from api
-      // by navigating to new view
+      
 
       history.push(`/meme?url=${response.data.url}`);
     } catch (err) {
