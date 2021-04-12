@@ -19,7 +19,7 @@ const ViewMeme = () => {
         </div>
       </div>
       <div className='row'>
-        <div className='col'>
+        <div className='col-md-10'>
           <img src={url} alt='Meme' className='view-meme-img' />
         </div>
       </div>
